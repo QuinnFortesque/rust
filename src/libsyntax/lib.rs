@@ -9,12 +9,14 @@
        html_root_url = "https://doc.rust-lang.org/nightly/",
        test(attr(deny(warnings))))]
 
+#![feature(core_intrinsics)]
 #![feature(crate_visibility_modifier)]
 #![feature(label_break_value)]
 #![feature(nll)]
 #![feature(rustc_attrs)]
 #![feature(rustc_diagnostic_macros)]
 #![feature(slice_sort_by_cached_key)]
+#![feature(stmt_expr_attributes)]
 #![feature(str_escape)]
 #![feature(step_trait)]
 #![feature(try_trait)]
@@ -160,7 +162,9 @@ pub use syntax_pos::edition;
 pub use syntax_pos::symbol;
 pub mod test;
 pub mod tokenstream;
+#[macro_use]
 pub mod visit;
+pub mod visit_mut;
 
 pub mod print {
     pub mod pp;

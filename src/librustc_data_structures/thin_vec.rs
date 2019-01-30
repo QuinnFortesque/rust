@@ -8,6 +8,14 @@ impl<T> ThinVec<T> {
     pub fn new() -> Self {
         ThinVec(None)
     }
+
+    #[inline]
+    pub fn as_vec(&mut self) -> Option<&mut Vec<T>> {
+        match *self {
+            ThinVec(None) => None,
+            ThinVec(Some(ref mut vec)) => Some(vec),
+        }
+    }
 }
 
 impl<T> From<Vec<T>> for ThinVec<T> {
@@ -35,6 +43,16 @@ impl<T> ::std::ops::Deref for ThinVec<T> {
         match *self {
             ThinVec(None) => &[],
             ThinVec(Some(ref vec)) => vec,
+        }
+    }
+}
+
+impl<T> ::std::ops::DerefMut for ThinVec<T> {
+    #[inline]
+    fn deref_mut(&mut self) -> &mut [T] {
+        match *self {
+            ThinVec(None) => &mut [],
+            ThinVec(Some(ref mut vec)) => vec,
         }
     }
 }
